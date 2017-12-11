@@ -1,76 +1,61 @@
 package com.kittypawmeow.bingbong;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.media.MediaPlayer;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
-/**
- * Created by cvalenza on 12/10/17.
- */
-
 public class GameView extends SurfaceView implements Runnable {
 	Thread gameThread = null;
 	SurfaceHolder myHolder;
-	volatile boolean playing;
 	Canvas canvas;
 	Paint paint;
 
-	long fps;
-	private long frameTime;
 	Bitmap characterBmp;
-	boolean isMoving = false;
-	float walkSpeedPerSecond = 150;
-	float characterXPosition = 10;
+	private Context app_context;
 
 	public GameView(Context context) {
 		super(context);
+		app_context = context;
 		myHolder = getHolder();
 		paint = new Paint();
-		characterBmp = BitmapFactory.decodeResource(this.getResources(), R.drawable.character);
+		characterBmp = BitmapFactory.decodeResource(this.getResources(), R.drawable.mouth_closed);
 	}
 
 	@Override
 	public void run() {
-		while (playing) {
-			long start = System.currentTimeMillis();
-			update();
-			draw();
-			frameTime = System.currentTimeMillis() - start;
-
-			if (frameTime > 0) {
-				fps = 1000/ frameTime;
-			}
-		}
-	}
-
-	public void update() {
-		if (isMoving) {
-			characterXPosition += walkSpeedPerSecond / fps;
-		}
+		draw();
 	}
 
 	public void draw() {
-		if (myHolder.getSurface().isValid()) {
+		if(myHolder.getSurface().isValid()) {
 			canvas = myHolder.lockCanvas();
 			canvas.drawColor(Color.rgb(157, 207, 206));
 			paint.setColor(Color.rgb(26, 128, 182));
-			paint.setTextSize(45);
-			canvas.drawText("" + fps, 20, 40, paint);
-			canvas.drawBitmap(characterBmp, characterXPosition, 200, paint);
+			DisplayMetrics displayMetrics = new DisplayMetrics();
+			((Activity) getContext()).getWindowManager()
+					.getDefaultDisplay()
+					.getMetrics(displayMetrics);
+			int screen_height = displayMetrics.heightPixels;
+			int screen_width = displayMetrics.widthPixels;
+			canvas.drawBitmap(characterBmp,
+					//screen_height / 2 - characterBmp.getHeight() / 2,
+					0,
+					screen_width / 2 - characterBmp.getWidth() / 2, paint);
 			myHolder.unlockCanvasAndPost(canvas);
 		}
 	}
 
 	public void pause() {
-		playing = false;
-
 		try {
 			gameThread.join();
 		} catch (InterruptedException e) {
@@ -79,19 +64,22 @@ public class GameView extends SurfaceView implements Runnable {
 	}
 
 	public void resume() {
-		playing = true;
 		gameThread = new Thread(this);
 		gameThread.start();
 	}
 
 	@Override
 	public boolean onTouchEvent(MotionEvent motionEvent) {
+		MediaPlayer mp = MediaPlayer.create(app_context, R.raw.bingbong);
 		switch (motionEvent.getAction() & MotionEvent.ACTION_MASK) {
 			case MotionEvent.ACTION_DOWN:
-				isMoving = true;
+				// play "bing"
+				// open mouth
+				mp.start();
 				break;
 			case MotionEvent.ACTION_UP:
-				isMoving = false;
+				// play "bong"
+				// close mouth
 				break;
 		}
 

@@ -8,11 +8,14 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.media.MediaPlayer;
+import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import android.view.View;
+import android.widget.Button;
 
 public class GameView extends SurfaceView implements Runnable {
 	Thread gameThread = null;
@@ -25,6 +28,20 @@ public class GameView extends SurfaceView implements Runnable {
 
 	public GameView(Context context) {
 		super(context);
+		init(context);
+	}
+
+	public GameView(Context context, AttributeSet attrs)
+	{
+		super(context, attrs);
+		init(context);
+	}
+	public GameView(Context context, AttributeSet attrs, int defStyle) {
+		super(context, attrs, defStyle);
+		init(context);
+	}
+
+	void init(Context context) {
 		app_context = context;
 		myHolder = getHolder();
 		paint = new Paint();
@@ -68,6 +85,7 @@ public class GameView extends SurfaceView implements Runnable {
 		gameThread.start();
 	}
 
+	/*
 	@Override
 	public boolean onTouchEvent(MotionEvent motionEvent) {
 		MediaPlayer mp = MediaPlayer.create(app_context, R.raw.bingbong);
@@ -85,4 +103,5 @@ public class GameView extends SurfaceView implements Runnable {
 
 		return true;
 	}
+	*/
 }

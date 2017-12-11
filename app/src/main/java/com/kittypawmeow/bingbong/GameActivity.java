@@ -1,12 +1,15 @@
 package com.kittypawmeow.bingbong;
 
 import android.annotation.SuppressLint;
+import android.media.MediaPlayer;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -61,23 +64,29 @@ public class GameActivity extends AppCompatActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		//setContentView(R.layout.activity_game);
 
 		mVisible = true;
-		//gameView = findViewById(R.id.fullscreen_content);
 
-		/*
-		// Set up the user interaction to manually show or hide the system UI.
-		gameView.setOnClickListener(new View.OnClickListener() {
+		setContentView(R.layout.activity_game);
+		gameView = (GameView) findViewById(R.id.game_view);
+		Button bing_bt = (Button) findViewById(R.id.bing_bt);
+		bing_bt.setOnClickListener(new View.OnClickListener() {
 			@Override
-			public void onClick(View view) {
-				toggle();
+			public void onClick(View v) {
+				Log.v("onclick", "bingbing");
+				MediaPlayer mp = MediaPlayer.create(getApplicationContext(), R.raw.bing);
+				mp.start();
 			}
 		});
-		*/
-
-		gameView = new GameView(this);
-		setContentView(gameView);
+		Button bong_bt = (Button) findViewById(R.id.bong_bt);
+		bong_bt.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Log.v("onclick", "bongbong");
+				MediaPlayer mp = MediaPlayer.create(getApplicationContext(), R.raw.bong);
+				mp.start();
+			}
+		});
 	}
 
 	@Override

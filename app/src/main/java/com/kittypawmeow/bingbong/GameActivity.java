@@ -12,8 +12,7 @@ import android.view.View;
 import android.widget.Button;
 
 /**
- * An example full-screen activity that shows and hides the system UI (i.e.
- * status bar and navigation/system bar) with user interaction.
+ * Main game activity
  */
 public class GameActivity extends AppCompatActivity {
 	private static final boolean AUTO_HIDE = true;
@@ -34,6 +33,7 @@ public class GameActivity extends AppCompatActivity {
 			gameView.run();
 		}
 	};
+
 	private final Runnable mShowPart2Runnable = new Runnable() {
 		@Override
 		public void run() {
@@ -43,6 +43,7 @@ public class GameActivity extends AppCompatActivity {
 			}
 		}
 	};
+
 	private boolean mVisible;
 	private final Runnable mHideRunnable = new Runnable() {
 		@Override
@@ -50,6 +51,7 @@ public class GameActivity extends AppCompatActivity {
 			hide();
 		}
 	};
+
 	private final View.OnTouchListener mDelayHideTouchListener = new View.OnTouchListener() {
 		@Override
 		public boolean onTouch(View view, MotionEvent motionEvent) {
@@ -66,25 +68,30 @@ public class GameActivity extends AppCompatActivity {
 
 
 		mVisible = true;
-
 		setContentView(R.layout.activity_game);
 		gameView = (GameView) findViewById(R.id.game_view);
+
+		// bing button (left)
 		Button bing_bt = (Button) findViewById(R.id.bing_bt);
 		bing_bt.setOnClickListener(new View.OnClickListener() {
+			MediaPlayer mp_bing = MediaPlayer.create(getApplicationContext(), R.raw.bing);
+
 			@Override
 			public void onClick(View v) {
-				Log.v("onclick", "bingbing");
-				MediaPlayer mp = MediaPlayer.create(getApplicationContext(), R.raw.bing);
-				mp.start();
+				Log.v("onclick", "bing");
+				mp_bing.start();
 			}
 		});
+
+		// bong button (right)
 		Button bong_bt = (Button) findViewById(R.id.bong_bt);
 		bong_bt.setOnClickListener(new View.OnClickListener() {
+			MediaPlayer mp_bong = MediaPlayer.create(getApplicationContext(), R.raw.bong);
+
 			@Override
 			public void onClick(View v) {
-				Log.v("onclick", "bongbong");
-				MediaPlayer mp = MediaPlayer.create(getApplicationContext(), R.raw.bong);
-				mp.start();
+				Log.v("onclick", "bong");
+				mp_bong.start();
 			}
 		});
 	}

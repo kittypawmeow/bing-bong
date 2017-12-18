@@ -7,24 +7,20 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.media.MediaPlayer;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
-import android.util.Log;
-import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
-import android.view.View;
-import android.widget.Button;
 
+/**
+ * Animated view of character which reacts to button presses
+ */
 public class GameView extends SurfaceView implements Runnable {
-	Thread gameThread = null;
 	SurfaceHolder myHolder;
 	Canvas canvas;
 	Paint paint;
 
 	Bitmap characterBmp;
-	private Context app_context;
 
 	public GameView(Context context) {
 		super(context);
@@ -42,7 +38,6 @@ public class GameView extends SurfaceView implements Runnable {
 	}
 
 	void init(Context context) {
-		app_context = context;
 		myHolder = getHolder();
 		paint = new Paint();
 		characterBmp = BitmapFactory.decodeResource(this.getResources(), R.drawable.mouth_closed);
@@ -71,37 +66,4 @@ public class GameView extends SurfaceView implements Runnable {
 			myHolder.unlockCanvasAndPost(canvas);
 		}
 	}
-
-	public void pause() {
-		try {
-			gameThread.join();
-		} catch (InterruptedException e) {
-			Log.e("Error:", "joining thread");
-		}
-	}
-
-	public void resume() {
-		gameThread = new Thread(this);
-		gameThread.start();
-	}
-
-	/*
-	@Override
-	public boolean onTouchEvent(MotionEvent motionEvent) {
-		MediaPlayer mp = MediaPlayer.create(app_context, R.raw.bingbong);
-		switch (motionEvent.getAction() & MotionEvent.ACTION_MASK) {
-			case MotionEvent.ACTION_DOWN:
-				// play "bing"
-				// open mouth
-				mp.start();
-				break;
-			case MotionEvent.ACTION_UP:
-				// play "bong"
-				// close mouth
-				break;
-		}
-
-		return true;
-	}
-	*/
 }

@@ -39,7 +39,7 @@ public class GameActivity extends AppCompatActivity {
 		public void run() {
 			ActionBar actionBar = getSupportActionBar();
 			if (actionBar != null) {
-				actionBar.show();
+				actionBar.hide();
 			}
 		}
 	};

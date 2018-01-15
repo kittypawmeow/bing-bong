@@ -51,8 +51,8 @@ public class GameView extends SurfaceView implements Runnable {
 	public void draw() {
 		if(myHolder.getSurface().isValid()) {
 			canvas = myHolder.lockCanvas();
-			canvas.drawColor(Color.rgb(157, 207, 206));
-			paint.setColor(Color.rgb(26, 128, 182));
+			canvas.drawColor(Color.rgb(255, 255, 255));
+			paint.setColor(Color.rgb(0, 0, 0));
 			DisplayMetrics displayMetrics = new DisplayMetrics();
 			((Activity) getContext()).getWindowManager()
 					.getDefaultDisplay()

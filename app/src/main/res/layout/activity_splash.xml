@@ -4,6 +4,11 @@
 				android:id="@+id/splash_view"
 				android:layout_width="match_parent"
 				android:layout_height="match_parent"
-				android:background="#0099cc"
-				tools:context="com.kittypawmeow.bingbong.SplashActivity">
+				android:background="#8274FD"
+                android:theme="@style/FullscreenTheme"
+                tools:context="com.kittypawmeow.bingbong.SplashActivity">
+    <ImageView android:id="@+id/splashscreen" android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:src="@drawable/logo"
+        android:layout_gravity="center"/>
 </RelativeLayout>

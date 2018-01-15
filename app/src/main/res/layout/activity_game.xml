@@ -22,7 +22,10 @@
 		android:layout_marginLeft="13dp"
 		android:layout_marginStart="13dp"
 		android:visibility="visible"
-		tools:text="BING"/>
+		android:text="BING"
+		android:textColor="#FFFFFF"
+		android:background="#FF2323"
+		/>
 
 	<Button
 		android:id="@+id/bong_bt"
@@ -34,5 +37,7 @@
 		android:layout_marginEnd="8dp"
 		android:layout_marginRight="8dp"
 		android:visibility="visible"
-		tools:text="BONG"/>
+		android:text="BONG"
+		android:textColor="#FFFFFF"
+		android:background="#227eff"/>
 </RelativeLayout>
